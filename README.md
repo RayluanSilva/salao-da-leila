@@ -28,6 +28,8 @@ Não precisa instalar nada. É só abrir o arquivo `index.html` no navegador
 Se preferir, também dá para servir a pasta com qualquer servidor simples,
 por exemplo:
 
+O projeto tambem esta publicado no link: https://salao-da-leila.vercel.app
+
 ```
 npx serve
 ```
@@ -41,9 +43,9 @@ npx serve
 **Cliente:** não existe conta pronta. Crie uma pela aba "Criar conta" na
 tela de login.
 
-Sugestão de roteiro:
+Sugestão:
 1. Crie uma conta de cliente e marque um agendamento em "Agendar";
-2. Saia e entre como a Leila (aba "Sou a Leila");
+2. Saia e entre como funcionario (aba "Sou funcionario");
 3. Confirme o agendamento no Painel e mude o status dos serviços;
 4. Veja os números em "Desempenho".
 
@@ -55,7 +57,7 @@ login.html                - entrar / criar conta
 agendar.html              - cliente marca um novo horário
 meus-agendamentos.html    - cliente vê, altera e cancela os agendamentos
 historico.html            - cliente vê o histórico filtrado por período
-painel.html               - a Leila vê e gerencia os agendamentos
+painel.html               - o funcionario vê e gerencia os agendamentos
 dashboard.html            - desempenho da semana
 
 css/
@@ -73,7 +75,7 @@ js/
   agendar.js              - novo agendamento
   meusAgendamentos.js     - lista, alteração e cancelamento
   historico.js            - histórico com filtro por período
-  painel.js               - painel da Leila
+  painel.js               - painel do funcionario
   dashboard.js            - números da semana
 ```
 
@@ -86,7 +88,7 @@ js/
 - Alterar ou cancelar um agendamento, mas só até 2 dias antes da data
   marcada - depois disso, o sistema pede para ligar no salão
 - Histórico de agendamentos já realizados, com filtro por período
-- A Leila pode ver todos os agendamentos, confirmar, mudar o status de
+- O funcionario pode ver todos os agendamentos, confirmar, mudar o status de
   cada serviço (pendente, em andamento, concluído, cancelado) e também
   alterar o horário de qualquer cliente, sem a trava dos 2 dias
 - Painel de desempenho com o total de atendimentos, faturamento, ticket
@@ -94,9 +96,7 @@ js/
 
 ## Observações
 
-- A senha fica salva sem criptografia no localStorage. Sei que isso não é
-  ideal, mas como é tudo no navegador e sem servidor, não tinha como fazer
-  diferente sem complicar demais o projeto.
+- A senha fica salva sem criptografia no localStorage.
 - Os horários disponíveis são só um campo de hora com intervalo de 30 em
   30 minutos (das 9h às 19h) - não tem uma verificação de horário já
   ocupado por outra cliente.
