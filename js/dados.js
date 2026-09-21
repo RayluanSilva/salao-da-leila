@@ -9,6 +9,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
 const db = firebase.firestore();
 const colecaoAgendamentos = db.collection("agendamentos");
 
