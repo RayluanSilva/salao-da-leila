@@ -2,6 +2,8 @@
 
 Teste prático para a vaga de Desenvolvimento - DSIN Tecnologia da Informação.
 
+**Site publicado: https://salao-da-leila.vercel.app**
+
 ## Tecnologias utilizadas
 
 - **HTML5**
