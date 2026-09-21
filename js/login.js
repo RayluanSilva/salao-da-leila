@@ -1,11 +1,8 @@
-const sessaoAtual = pegarSessao();
-if (sessaoAtual) {
-  if (sessaoAtual.tipo === "ADMIN") {
-    window.location.href = "painel.html";
-  } else {
-    window.location.href = "agendar.html";
+auth.onAuthStateChanged(function (usuario) {
+  if (usuario) {
+    window.location.href = ehAdmin(usuario) ? "painel.html" : "agendar.html";
   }
-}
+});
 
 function mostrarTipo(tipo) {
   const areaCliente = document.getElementById("areaCliente");
@@ -51,19 +48,22 @@ function fazerLoginCliente(evento) {
   const email = document.getElementById("loginEmail").value.trim().toLowerCase();
   const senha = document.getElementById("loginSenha").value;
   const erro = document.getElementById("erroLoginCliente");
+  erro.textContent = "";
 
-  const dados = pegarDados();
-  const cliente = dados.clientes.find(function (c) {
-    return c.email.toLowerCase() === email && c.senha === senha;
-  });
+  auth
+    .signInWithEmailAndPassword(email, senha)
+    .then(function (resultado) {
+      if (ehAdmin(resultado.user)) {
+        auth.signOut();
+        erro.textContent = 'Esta conta é da equipe. Use a aba "Sou Funcionario".';
+        return;
+      }
+      window.location.href = "agendar.html";
+    })
+    .catch(function (erroFirebase) {
+      erro.textContent = mensagemDeErro(erroFirebase.code);
+    });
 
-  if (!cliente) {
-    erro.textContent = "E-mail ou senha incorretos.";
-    return false;
-  }
-
-  salvarSessao({ tipo: "CLIENTE", clienteId: cliente.id });
-  window.location.href = "agendar.html";
   return false;
 }
 
@@ -75,31 +75,21 @@ function fazerCadastro(evento) {
   const email = document.getElementById("cadastroEmail").value.trim().toLowerCase();
   const senha = document.getElementById("cadastroSenha").value;
   const erro = document.getElementById("erroCadastro");
+  erro.textContent = "";
 
-  const dados = pegarDados();
+  auth
+    .createUserWithEmailAndPassword(email, senha)
+    .then(function (resultado) {
+      salvarTelefone(resultado.user.uid, telefone);
+      return resultado.user.updateProfile({ displayName: nome });
+    })
+    .then(function () {
+      window.location.href = "agendar.html";
+    })
+    .catch(function (erroFirebase) {
+      erro.textContent = mensagemDeErro(erroFirebase.code);
+    });
 
-  const jaExiste = dados.clientes.some(function (c) {
-    return c.email.toLowerCase() === email;
-  });
-
-  if (jaExiste) {
-    erro.textContent = "Já existe uma conta com esse e-mail.";
-    return false;
-  }
-
-  const novoCliente = {
-    id: gerarId(),
-    nome: nome,
-    telefone: telefone,
-    email: email,
-    senha: senha,
-  };
-
-  dados.clientes.push(novoCliente);
-  salvarDados(dados);
-
-  salvarSessao({ tipo: "CLIENTE", clienteId: novoCliente.id });
-  window.location.href = "agendar.html";
   return false;
 }
 
@@ -109,13 +99,21 @@ function fazerLoginAdmin(evento) {
   const email = document.getElementById("adminEmail").value.trim().toLowerCase();
   const senha = document.getElementById("adminSenha").value;
   const erro = document.getElementById("erroLoginAdmin");
+  erro.textContent = "";
 
-  if (email === ADMIN.email && senha === ADMIN.senha) {
-    salvarSessao({ tipo: "ADMIN" });
-    window.location.href = "painel.html";
-    return false;
-  }
+  auth
+    .signInWithEmailAndPassword(email, senha)
+    .then(function (resultado) {
+      if (!ehAdmin(resultado.user)) {
+        auth.signOut();
+        erro.textContent = "Esta conta não tem acesso de administrador.";
+        return;
+      }
+      window.location.href = "painel.html";
+    })
+    .catch(function (erroFirebase) {
+      erro.textContent = mensagemDeErro(erroFirebase.code);
+    });
 
-  erro.textContent = "E-mail ou senha incorretos.";
   return false;
 }

@@ -1,3 +1,17 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyAGeoWrN_4T-Ekt7kGBZjBCKcUE9VE6DAU",
+  authDomain: "salao-da-leila-app.firebaseapp.com",
+  projectId: "salao-da-leila-app",
+  storageBucket: "salao-da-leila-app.firebasestorage.app",
+  messagingSenderId: "982795418790",
+  appId: "1:982795418790:web:26912829ee7615ccbf4867",
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+const EMAIL_ADMIN = "leila@salao.com";
+
 const SERVICOS = [
   { id: 1, nome: "Corte Feminino", preco: 70, duracao: 50, icone: "fa-scissors" },
   { id: 2, nome: "Escova", preco: 60, duracao: 40, icone: "fa-wind" },
@@ -9,20 +23,16 @@ const SERVICOS = [
   { id: 8, nome: "Sobrancelha", preco: 35, duracao: 25, icone: "fa-eye" },
 ];
 
-const ADMIN = {
-  email: "leila@salao.com",
-  senha: "leila123",
-};
+function ehAdmin(usuario) {
+  return !!usuario && usuario.email === EMAIL_ADMIN;
+}
 
 function pegarDados() {
   const salvo = localStorage.getItem("salaoDaLeila");
   if (salvo) {
     return JSON.parse(salvo);
   }
-  const dadosIniciais = {
-    clientes: [],
-    agendamentos: [],
-  };
+  const dadosIniciais = { agendamentos: [] };
   salvarDados(dadosIniciais);
   return dadosIniciais;
 }
@@ -31,20 +41,37 @@ function salvarDados(dados) {
   localStorage.setItem("salaoDaLeila", JSON.stringify(dados));
 }
 
-function pegarSessao() {
-  const sessao = localStorage.getItem("sessao");
-  return sessao ? JSON.parse(sessao) : null;
+function salvarTelefone(uid, telefone) {
+  const telefones = JSON.parse(localStorage.getItem("telefones") || "{}");
+  telefones[uid] = telefone;
+  localStorage.setItem("telefones", JSON.stringify(telefones));
 }
 
-function salvarSessao(sessao) {
-  localStorage.setItem("sessao", JSON.stringify(sessao));
+function pegarTelefone(uid) {
+  const telefones = JSON.parse(localStorage.getItem("telefones") || "{}");
+  return telefones[uid] || "";
 }
 
 function sair() {
-  localStorage.removeItem("sessao");
-  window.location.href = "login.html";
+  auth.signOut().then(function () {
+    window.location.href = "login.html";
+  });
 }
 
 function gerarId() {
   return Date.now();
+}
+
+function mensagemDeErro(codigo) {
+  const mensagens = {
+    "auth/invalid-email": "Digite um e-mail válido.",
+    "auth/user-not-found": "E-mail ou senha incorretos.",
+    "auth/wrong-password": "E-mail ou senha incorretos.",
+    "auth/invalid-credential": "E-mail ou senha incorretos.",
+    "auth/email-already-in-use": "Já existe uma conta com esse e-mail.",
+    "auth/weak-password": "A senha precisa ter pelo menos 6 caracteres.",
+    "auth/too-many-requests": "Muitas tentativas. Aguarde um pouco e tente de novo.",
+    "auth/network-request-failed": "Sem conexão com a internet.",
+  };
+  return mensagens[codigo] || "Não foi possível completar. Tente novamente.";
 }
