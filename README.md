@@ -20,12 +20,15 @@ Abrir `index.html` no navegador. Ou, com um servidor local:
 npx serve
 ```
 
-## Credenciais de teste
+## Como usar
 
-| Perfil | E-mail | Senha |
-|---|---|---|
-| Administradora | leila@salao.com | leila123 |
-| Cliente | criar conta na tela de login | — |
+**Login da administradora (Leila)** - conta real, já criada no Firebase:
+- E-mail: leila@salao.com
+- Senha: leila123
+
+**Cliente:** não existe conta pronta. Crie uma pela aba "Criar conta" na
+tela de login - vira uma conta de verdade no Firebase, com e-mail e senha
+reais (mínimo 6 caracteres, exigido pelo Firebase).
 
 ## Funcionalidades
 
