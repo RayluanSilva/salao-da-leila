@@ -10,6 +10,8 @@ auth.onAuthStateChanged(function (usuario) {
 
 function iniciarPagina(agendamentos) {
   const listaDiv = document.getElementById("listaPainel");
+  document.getElementById("filtroStatus").value = "";
+  document.getElementById("filtroNome").value = "";
 
   function iconeDoServico(nomeServico) {
     const servico = SERVICOS.find(function (s) {

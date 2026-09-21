@@ -2,7 +2,7 @@
 
 Sistema de agendamento para salão de beleza. Teste prático — vaga de Desenvolvimento, DSIN Tecnologia da Informação.
 
-**Demo:** https://salao-da-leila.vercel.app
+**VERSÃO PUBLICADA:** https://salao-da-leila.vercel.app
 
 ## Tecnologias
 
