@@ -41,15 +41,15 @@ function salvarDados(dados) {
   localStorage.setItem("salaoDaLeila", JSON.stringify(dados));
 }
 
-function salvarTelefone(uid, telefone) {
-  const telefones = JSON.parse(localStorage.getItem("telefones") || "{}");
-  telefones[uid] = telefone;
-  localStorage.setItem("telefones", JSON.stringify(telefones));
+function salvarPerfil(uid, perfil) {
+  const perfis = JSON.parse(localStorage.getItem("perfis") || "{}");
+  perfis[uid] = perfil;
+  localStorage.setItem("perfis", JSON.stringify(perfis));
 }
 
-function pegarTelefone(uid) {
-  const telefones = JSON.parse(localStorage.getItem("telefones") || "{}");
-  return telefones[uid] || "";
+function pegarPerfil(uid) {
+  const perfis = JSON.parse(localStorage.getItem("perfis") || "{}");
+  return perfis[uid] || null;
 }
 
 function sair() {

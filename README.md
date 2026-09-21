@@ -9,7 +9,7 @@ Teste prático para a vaga de Desenvolvimento - DSIN Tecnologia da Informação.
 - **HTML5**
 - **CSS3** (Flexbox, Grid e variáveis de cor)
 - **JavaScript puro** (sem frameworks)
-- **Firebase Authentication** (login e cadastro de verdade)
+- **Firebase Authentication** (login e cadastro)
 - **Font Awesome** (ícones, via CDN)
 - **Google Fonts** (Barlow Condensed e Jost)
 

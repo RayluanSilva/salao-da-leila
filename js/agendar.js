@@ -8,9 +8,12 @@ auth.onAuthStateChanged(function (usuario) {
 
 function iniciarPagina(usuario) {
   const dados = pegarDados();
+  const perfil = pegarPerfil(usuario.uid) || {};
+  const nomeCliente = perfil.nome || usuario.displayName || "Cliente";
+  const telefoneCliente = perfil.telefone || "";
 
   document.getElementById("titulo").textContent =
-    "Olá, " + (usuario.displayName || "").split(" ")[0] + "! O que vamos marcar?";
+    "Olá, " + nomeCliente.split(" ")[0] + "! O que vamos marcar?";
 
   const listaServicos = document.getElementById("listaServicos");
   SERVICOS.forEach(function (servico) {
@@ -122,8 +125,8 @@ function iniciarPagina(usuario) {
     const novoAgendamento = {
       id: gerarId(),
       clienteId: usuario.uid,
-      clienteNome: usuario.displayName || "Cliente",
-      clienteTelefone: pegarTelefone(usuario.uid),
+      clienteNome: nomeCliente,
+      clienteTelefone: telefoneCliente,
       data: data,
       hora: hora,
       confirmado: false,

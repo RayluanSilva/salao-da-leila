@@ -80,7 +80,7 @@ function fazerCadastro(evento) {
   auth
     .createUserWithEmailAndPassword(email, senha)
     .then(function (resultado) {
-      salvarTelefone(resultado.user.uid, telefone);
+      salvarPerfil(resultado.user.uid, { nome: nome, telefone: telefone });
       return resultado.user.updateProfile({ displayName: nome });
     })
     .then(function () {
