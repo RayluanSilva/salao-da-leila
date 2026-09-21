@@ -48,7 +48,7 @@ function jaPassou(dataTexto) {
 }
 
 function statusGeral(agendamento) {
-  const servicosAtivos = agendamento.servicos.filter(function (s) {
+  const servicosAtivos = (agendamento.servicos || []).filter(function (s) {
     return s.status !== "Cancelado";
   });
 

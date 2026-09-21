@@ -19,7 +19,7 @@ function iniciarPagina(agendamentos) {
     });
 
     meusAgendamentos.sort(function (a, b) {
-      return (a.data + a.hora).localeCompare(b.data + b.hora);
+      return ((a.data || "") + (a.hora || "")).localeCompare((b.data || "") + (b.hora || ""));
     });
 
     if (meusAgendamentos.length === 0) {
