@@ -3,11 +3,12 @@ auth.onAuthStateChanged(function (usuario) {
     window.location.href = "login.html";
     return;
   }
-  iniciarPagina(usuario);
+  buscarAgendamentosDoCliente(usuario.uid).then(function (agendamentos) {
+    iniciarPagina(usuario, agendamentos);
+  });
 });
 
-function iniciarPagina(usuario) {
-  const dados = pegarDados();
+function iniciarPagina(usuario, meusAgendamentos) {
   const perfil = pegarPerfil(usuario.uid) || {};
   const nomeCliente = perfil.nome || usuario.displayName || "Cliente";
   const telefoneCliente = perfil.telefone || "";
@@ -77,9 +78,8 @@ function iniciarPagina(usuario) {
       return;
     }
 
-    const outroDaSemana = dados.agendamentos.find(function (a) {
+    const outroDaSemana = meusAgendamentos.find(function (a) {
       return (
-        a.clienteId === usuario.uid &&
         a.data !== dataEscolhida &&
         statusGeral(a) !== "Cancelado" &&
         mesmaSemanaOutraData(a.data, dataEscolhida)
@@ -122,8 +122,10 @@ function iniciarPagina(usuario) {
       return;
     }
 
-    const novoAgendamento = {
-      id: gerarId(),
+    const botao = document.querySelector('button[onclick="confirmarAgendamento()"]');
+    botao.disabled = true;
+
+    criarAgendamento({
       clienteId: usuario.uid,
       clienteNome: nomeCliente,
       clienteTelefone: telefoneCliente,
@@ -138,11 +140,13 @@ function iniciarPagina(usuario) {
           status: "Pendente",
         };
       }),
-    };
-
-    dados.agendamentos.push(novoAgendamento);
-    salvarDados(dados);
-
-    window.location.href = "meus-agendamentos.html";
+    })
+      .then(function () {
+        window.location.href = "meus-agendamentos.html";
+      })
+      .catch(function () {
+        erro.textContent = "Não foi possível confirmar. Tente novamente.";
+        botao.disabled = false;
+      });
   };
 }

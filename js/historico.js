@@ -3,16 +3,17 @@ auth.onAuthStateChanged(function (usuario) {
     window.location.href = "login.html";
     return;
   }
-  iniciarPagina(usuario);
+  buscarAgendamentosDoCliente(usuario.uid).then(function (agendamentos) {
+    iniciarPagina(agendamentos);
+  });
 });
 
-function iniciarPagina(usuario) {
-  const dados = pegarDados();
+function iniciarPagina(agendamentos) {
   const listaDiv = document.getElementById("listaHistorico");
 
-  const historicoCompleto = dados.agendamentos
+  const historicoCompleto = agendamentos
     .filter(function (a) {
-      return a.clienteId === usuario.uid && jaPassou(a.data);
+      return jaPassou(a.data);
     })
     .sort(function (a, b) {
       return (b.data + b.hora).localeCompare(a.data + a.hora);

@@ -9,6 +9,8 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+const db = firebase.firestore();
+const colecaoAgendamentos = db.collection("agendamentos");
 
 const EMAIL_ADMIN = "leila@salao.com";
 
@@ -27,18 +29,33 @@ function ehAdmin(usuario) {
   return !!usuario && usuario.email === EMAIL_ADMIN;
 }
 
-function pegarDados() {
-  const salvo = localStorage.getItem("salaoDaLeila");
-  if (salvo) {
-    return JSON.parse(salvo);
-  }
-  const dadosIniciais = { agendamentos: [] };
-  salvarDados(dadosIniciais);
-  return dadosIniciais;
+function paraListaDeAgendamentos(snapshot) {
+  const lista = [];
+  snapshot.forEach(function (doc) {
+    const agendamento = doc.data();
+    agendamento.id = doc.id;
+    lista.push(agendamento);
+  });
+  return lista;
 }
 
-function salvarDados(dados) {
-  localStorage.setItem("salaoDaLeila", JSON.stringify(dados));
+function buscarAgendamentosDoCliente(uid) {
+  return colecaoAgendamentos
+    .where("clienteId", "==", uid)
+    .get()
+    .then(paraListaDeAgendamentos);
+}
+
+function buscarTodosAgendamentos() {
+  return colecaoAgendamentos.get().then(paraListaDeAgendamentos);
+}
+
+function criarAgendamento(agendamento) {
+  return colecaoAgendamentos.add(agendamento);
+}
+
+function atualizarAgendamento(id, campos) {
+  return colecaoAgendamentos.doc(id).update(campos);
 }
 
 function salvarPerfil(uid, perfil) {
@@ -56,10 +73,6 @@ function sair() {
   auth.signOut().then(function () {
     window.location.href = "login.html";
   });
-}
-
-function gerarId() {
-  return Date.now();
 }
 
 function mensagemDeErro(codigo) {

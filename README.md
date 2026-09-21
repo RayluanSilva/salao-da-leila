@@ -10,16 +10,17 @@ Teste prático para a vaga de Desenvolvimento - DSIN Tecnologia da Informação.
 - **CSS3** (Flexbox, Grid e variáveis de cor)
 - **JavaScript puro** (sem frameworks)
 - **Firebase Authentication** (login e cadastro)
+- **Cloud Firestore** (banco de dados dos agendamentos)
 - **Font Awesome** (ícones, via CDN)
 - **Google Fonts** (Barlow Condensed e Jost)
 
 A logo do site foi feita em SVG (`imagens/logo.svg`).
 
-Não usei nenhum framework de front-end. O login e o cadastro são
-autenticados de verdade pelo Firebase Authentication (servidor do Google) -
-as senhas nunca ficam salvas no navegador nem em texto puro em lugar
-nenhum. Os agendamentos continuam salvos no `localStorage` do navegador
-(ver a seção **Sobre o Firebase** para o que isso significa na prática).
+Não usei nenhum framework de front-end. O login, o cadastro e os
+agendamentos são todos de verdade, guardados no Firebase (Google) - as
+senhas nunca ficam salvas no navegador, e os agendamentos ficam
+disponíveis em qualquer dispositivo, não só no navegador onde foram
+criados (ver a seção **Sobre o Firebase** para os detalhes).
 
 O layout é responsivo e funciona no celular.
 
@@ -53,9 +54,9 @@ Sugestão:
 3. Confirme o agendamento no Painel e mude o status dos serviços;
 4. Veja os números em "Desempenho".
 
-Importante: o agendamento só aparece no Painel se for testado **no mesmo
-navegador** em que foi criado (veja o porquê em **Sobre o Firebase**
-abaixo).
+O agendamento aparece no Painel **mesmo que a administradora esteja em
+outro navegador, computador ou celular** - os dados agora ficam no
+Firebase, não mais presos ao navegador que criou o agendamento.
 
 ## Estrutura de arquivos
 
@@ -78,7 +79,7 @@ imagens/
 js/
   menu.js                 - abre e fecha o menu no celular
   dados.js                - configuração do Firebase, catálogo de serviços,
-                             acesso ao localStorage dos agendamentos
+                             funções de acesso ao Firestore
   utils.js                - funções de data, preço e status
   login.js                - login e cadastro via Firebase Authentication
   agendar.js              - novo agendamento
@@ -86,6 +87,10 @@ js/
   historico.js            - histórico com filtro por período
   painel.js               - painel do funcionario
   dashboard.js            - números da semana
+
+firestore.rules            - regras de segurança do banco de dados
+firebase.json               - aponta para o firestore.rules
+.firebaserc                  - qual projeto do Firebase este código usa
 ```
 
 ## Funcionalidades
@@ -105,36 +110,62 @@ js/
 
 ## Sobre o Firebase
 
-O login e o cadastro usam o **Firebase Authentication**, um serviço do
-Google. É autenticação de verdade: a senha nunca passa nem fica salva no
-navegador - ela vai direto para o servidor do Firebase, que devolve só uma
-confirmação de identidade. Ninguém consegue ler a senha de outra pessoa
-abrindo o DevTools, e ninguém entra como administradora sem saber a senha
-real dela.
+O site usa dois serviços do Firebase (Google):
+
+**Firebase Authentication**, para login e cadastro. A senha nunca passa
+nem fica salva no navegador - ela vai direto para o servidor do Firebase,
+que devolve só uma confirmação de identidade. Ninguém consegue ler a
+senha de outra pessoa abrindo o DevTools, e ninguém entra como
+administradora sem saber a senha real dela.
+
+**Cloud Firestore**, o banco de dados do Firebase, para os agendamentos.
+Cada agendamento é um documento na coleção `agendamentos`, com o
+`clienteId` (o uid do Firebase) marcando de quem é. Isso significa que
+os agendamentos **não ficam mais presos a um navegador**: a cliente
+agenda no celular, a administradora confirma no computador, e ambos
+enxergam o mesmo dado, porque ele está guardado na nuvem do Google, não
+no `localStorage`.
 
 A chave (`apiKey`) que aparece em `js/dados.js` **não é um segredo** - é
 assim que o Firebase funciona: essa chave só identifica de qual projeto o
 site está falando, ela não dá acesso a nada sozinha. Toda a documentação
 oficial do Firebase recomenda deixá-la no código do front-end mesmo, e é
-por isso que ela está exposta aqui sem problema.
+por isso que ela está exposta aqui sem problema. Quem realmente controla
+o que cada pessoa pode ler ou escrever é o arquivo `firestore.rules`.
 
-O que o Firebase cuida:
-- Login e cadastro (e-mail e senha)
-- Saber quem está logada em cada página
+### As regras de segurança (`firestore.rules`)
 
-O que **continua** no `localStorage` do navegador (não mudou):
-- Os agendamentos em si
-- O telefone informado no cadastro (o Firebase Authentication não tem um
-  campo pronto para isso)
+Sem essas regras, qualquer pessoa logada poderia ler ou editar o
+agendamento de qualquer outra cliente direto pelo DevTools, contornando
+completamente a tela do site. As regras rodam no servidor do Firebase,
+não no navegador, então não tem como burlar:
 
-Na prática, isso significa que os agendamentos só aparecem para quem
-testar tudo **no mesmo navegador**: se a cliente agenda no Chrome do
-computador e a administradora abre o Firefox, ou o celular, ela não vai
-ver esse agendamento - o login é o mesmo em qualquer lugar, mas os dados
-do agendamento, não. Resolver isso de vez exigiria guardar os
-agendamentos também no Firebase (no Firestore, o banco de dados dele) em
-vez do localStorage - um passo natural a seguir, mas fora do que foi pedido
-aqui.
+- Uma cliente só consegue **criar** um agendamento em nome dela mesma
+  (compara o `clienteId` do agendamento com o uid de quem está logada)
+- Uma cliente só consegue **ler ou alterar** os próprios agendamentos
+- A administradora (identificada pelo e-mail `leila@salao.com`) consegue
+  ler e alterar **qualquer** agendamento
+- Ninguém consegue apagar um agendamento (por isso cancelar marca os
+  serviços como "Cancelado" em vez de remover o documento)
+
+Essas regras foram testadas de verdade contra o Firebase (não é só teoria
+no papel): uma cliente tentando se passar por outra, ou tentando ler o
+agendamento alheio, recebe "Missing or insufficient permissions" do
+próprio servidor do Google.
+
+### O que ainda fica só no navegador
+
+O nome e o telefone informados no cadastro ficam guardados localmente
+(em `localStorage`) além de serem enviados para o Firebase - o
+Authentication não tem um campo pronto para telefone, e o nome
+(`displayName`) demora um instante para sincronizar depois do cadastro.
+Isso só importa no exato momento de criar um agendamento: o nome e o
+telefone são gravados dentro do próprio documento naquele instante, então
+depois disso a informação já está no Firestore e visível de qualquer
+lugar. O único cenário onde isso pode faltar é uma cliente **trocar de
+navegador logo após se cadastrar** e agendar antes de o Firebase
+sincronizar o nome - um caso bem específico, sem impacto no funcionamento
+normal do sistema.
 
 ## Outras observações
 

@@ -3,18 +3,19 @@ auth.onAuthStateChanged(function (usuario) {
     window.location.href = "login.html";
     return;
   }
-  iniciarPagina(usuario);
+  buscarAgendamentosDoCliente(usuario.uid).then(function (agendamentos) {
+    iniciarPagina(agendamentos);
+  });
 });
 
-function iniciarPagina(usuario) {
-  const dados = pegarDados();
+function iniciarPagina(agendamentos) {
   const listaDiv = document.getElementById("listaAgendamentos");
 
   desenharLista();
 
   function desenharLista() {
-    const meusAgendamentos = dados.agendamentos.filter(function (a) {
-      return a.clienteId === usuario.uid && !jaPassou(a.data);
+    const meusAgendamentos = agendamentos.filter(function (a) {
+      return !jaPassou(a.data);
     });
 
     meusAgendamentos.sort(function (a, b) {
@@ -38,6 +39,7 @@ function iniciarPagina(usuario) {
   function criarCartao(agendamento) {
     const status = statusGeral(agendamento);
     const podeMexer = podeAlterar(agendamento.data) && status !== "Cancelado" && status !== "Concluído";
+    const id = agendamento.id;
 
     const div = document.createElement("div");
     div.className = "agendamento";
@@ -53,9 +55,9 @@ function iniciarPagina(usuario) {
     let botoes = "";
     if (podeMexer) {
       botoes =
-        '<button onclick="mostrarFormularioAlterar(' + agendamento.id + ')">' +
+        '<button onclick="mostrarFormularioAlterar(\'' + id + '\')">' +
           '<i class="fa-solid fa-pen"></i> Alterar</button>' +
-        '<button class="cancelar" onclick="cancelarAgendamento(' + agendamento.id + ')">' +
+        '<button class="cancelar" onclick="cancelarAgendamento(\'' + id + '\')">' +
           '<i class="fa-solid fa-xmark"></i> Cancelar</button>';
     } else if (status !== "Cancelado" && status !== "Concluído") {
       botoes =
@@ -74,10 +76,10 @@ function iniciarPagina(usuario) {
       "<table>" + linhasServicos + "</table>" +
       '<div class="total">Total: <span>' + formatarPreco(calcularTotal(agendamento)) + "</span></div>" +
       '<div class="acoes">' + botoes + "</div>" +
-      '<div id="formAlterar' + agendamento.id + '" class="escondido form-alterar">' +
-        '<div class="campo"><label>Nova data</label><input type="date" id="novaData' + agendamento.id + '" value="' + agendamento.data + '"></div>' +
-        '<div class="campo"><label>Novo horário</label><input type="time" id="novaHora' + agendamento.id + '" value="' + agendamento.hora + '" min="09:00" max="19:00" step="1800"></div>' +
-        '<button onclick="salvarAlteracao(' + agendamento.id + ')">Salvar alteração</button>' +
+      '<div id="formAlterar' + id + '" class="escondido form-alterar">' +
+        '<div class="campo"><label>Nova data</label><input type="date" id="novaData' + id + '" value="' + agendamento.data + '"></div>' +
+        '<div class="campo"><label>Novo horário</label><input type="time" id="novaHora' + id + '" value="' + agendamento.hora + '" min="09:00" max="19:00" step="1800"></div>' +
+        '<button onclick="salvarAlteracao(\'' + id + '\')">Salvar alteração</button>' +
       "</div>";
 
     return div;
@@ -96,31 +98,31 @@ function iniciarPagina(usuario) {
       return;
     }
 
-    const agendamento = dados.agendamentos.find(function (a) {
-      return a.id === id;
+    atualizarAgendamento(id, { data: novaData, hora: novaHora, confirmado: false }).then(function () {
+      const agendamento = agendamentos.find(function (a) {
+        return a.id === id;
+      });
+      agendamento.data = novaData;
+      agendamento.hora = novaHora;
+      agendamento.confirmado = false;
+      desenharLista();
     });
-
-    agendamento.data = novaData;
-    agendamento.hora = novaHora;
-    agendamento.confirmado = false;
-
-    salvarDados(dados);
-    desenharLista();
   };
 
   window.cancelarAgendamento = function (id) {
     const confirmou = confirm("Tem certeza que deseja cancelar este agendamento?");
     if (!confirmou) return;
 
-    const agendamento = dados.agendamentos.find(function (a) {
+    const agendamento = agendamentos.find(function (a) {
       return a.id === id;
     });
-
-    agendamento.servicos.forEach(function (s) {
-      s.status = "Cancelado";
+    const servicosCancelados = agendamento.servicos.map(function (s) {
+      return { nome: s.nome, preco: s.preco, duracao: s.duracao, status: "Cancelado" };
     });
 
-    salvarDados(dados);
-    desenharLista();
+    atualizarAgendamento(id, { servicos: servicosCancelados }).then(function () {
+      agendamento.servicos = servicosCancelados;
+      desenharLista();
+    });
   };
 }

@@ -3,12 +3,12 @@ auth.onAuthStateChanged(function (usuario) {
     window.location.href = "login.html";
     return;
   }
-  iniciarPagina();
+  buscarTodosAgendamentos().then(function (agendamentos) {
+    iniciarPagina(agendamentos);
+  });
 });
 
-function iniciarPagina() {
-  const dados = pegarDados();
-
+function iniciarPagina(agendamentos) {
   const hoje = new Date();
   const inicioSemanaAtual = inicioDaSemana(formatarDataISO(hoje));
   const fimSemanaAtual = new Date(inicioSemanaAtual);
@@ -17,7 +17,7 @@ function iniciarPagina() {
   document.getElementById("periodoSemana").textContent =
     "De " + formatarDataObjeto(inicioSemanaAtual) + " até " + formatarDataObjeto(fimSemanaAtual);
 
-  const agendamentosDaSemana = dados.agendamentos.filter(function (a) {
+  const agendamentosDaSemana = agendamentos.filter(function (a) {
     const data = new Date(a.data + "T00:00:00");
     return data >= inicioSemanaAtual && data <= fimSemanaAtual;
   });

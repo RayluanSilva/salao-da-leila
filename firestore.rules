@@ -1,0 +1,21 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function ehAdmin() {
+      return request.auth != null && request.auth.token.email == "leila@salao.com";
+    }
+
+    function ehDona(clienteId) {
+      return request.auth != null && request.auth.uid == clienteId;
+    }
+
+    match /agendamentos/{agendamentoId} {
+      allow read: if ehDona(resource.data.clienteId) || ehAdmin();
+      allow create: if ehDona(request.resource.data.clienteId);
+      allow update: if ehDona(resource.data.clienteId) || ehAdmin();
+      allow delete: if false;
+    }
+  }
+}
