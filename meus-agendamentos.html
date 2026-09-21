@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meus Agendamentos - Salão da Leila</title>
+  <link rel="icon" type="image/svg+xml" href="imagens/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/estilo.css" />
+</head>
+<body>
+
+  <header>
+    <a href="agendar.html" class="logo">
+      <img src="imagens/logo.svg" alt="Logo do Salão da Leila" />
+      <span class="logo-texto">
+        <span class="logo-nome">Salão da Leila</span>
+        <span class="logo-slogan">Area do cliente</span>
+      </span>
+    </a>
+
+    <button class="botao-menu" id="botaoMenu" onclick="alternarMenu()" aria-label="Abrir menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <nav id="menuPrincipal">
+      <a href="agendar.html"><i class="fa-solid fa-calendar-plus"></i>Agendar</a>
+      <a href="meus-agendamentos.html" class="ativo"><i class="fa-solid fa-calendar-check"></i>Meus Agendamentos</a>
+      <a href="historico.html"><i class="fa-solid fa-clock-rotate-left"></i>Histórico</a>
+      <a href="#" onclick="sair()"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Meus próximos horários</h2>
+    <p class="subtitulo">Aqui você altera ou cancela seus agendamentos</p>
+    <div id="listaAgendamentos"></div>
+  </main>
+
+  <footer>
+    Salão da Leila © 2026 - Sistema de Agendamento
+  </footer>
+
+  <script src="js/menu.js"></script>
+  <script src="js/dados.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/meusAgendamentos.js"></script>
+</body>
+</html>

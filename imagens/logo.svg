@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Logo do Salão da Leila">
+  <defs>
+    <linearGradient id="fundo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c2496c" />
+      <stop offset="100%" stop-color="#8e2e49" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="64" height="64" rx="18" fill="url(#fundo)" />
+
+  <g stroke="#f0d9a8" stroke-width="2.6" stroke-linecap="round" fill="none">
+    <line x1="23" y1="16" x2="39" y2="39" />
+    <line x1="41" y1="16" x2="25" y2="39" />
+    <circle cx="23" cy="45" r="5" />
+    <circle cx="41" cy="45" r="5" />
+  </g>
+</svg>

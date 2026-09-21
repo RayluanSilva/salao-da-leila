@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salão da Leila</title>
+  <link rel="icon" type="image/svg+xml" href="imagens/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/estilo.css" />
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="logo">
+      <img src="imagens/logo.svg" alt="Logo do Salão da Leila" />
+      <span class="logo-texto">
+        <span class="logo-nome">Salão da Leila</span>
+        <span class="logo-slogan">Seu momento mulher</span>
+      </span>
+    </a>
+
+    <button class="botao-menu" id="botaoMenu" onclick="alternarMenu()" aria-label="Abrir menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <nav id="menuPrincipal">
+      <a href="index.html" class="ativo">Início</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#contato">Contato</a>
+      <a href="login.html"><i class="fa-solid fa-right-to-bracket"></i>Entrar</a>
+    </nav>
+  </header>
+
+  <section class="banner">
+    <div class="banner-conteudo">
+      <span class="etiqueta">Agendamento online</span>
+      <h2>Seu horário, do seu jeito</h2>
+      <p>
+        Escolha os serviços, o melhor dia e horário, e chegue no salão com
+        tudo certo. Sem fila de espera no telefone.
+      </p>
+      <a href="login.html" class="botao">
+        <i class="fa-solid fa-calendar-check"></i> Agendar meu horário
+      </a>
+    </div>
+  </section>
+
+  <section class="secao" id="servicos">
+    <div class="secao-titulo">
+      <h2>Nossos serviços</h2>
+      <p>Escolha um ou mais no momento do agendamento</p>
+      <div class="separador"></div>
+    </div>
+    <div class="grade-servicos" id="gradeServicos"></div>
+  </section>
+
+  <section class="secao" id="contato">
+    <div class="secao-titulo">
+      <h2>Venha nos visitar</h2>
+      <p>Estamos esperando por você</p>
+      <div class="separador"></div>
+    </div>
+
+    <div class="bloco-info">
+      <img src="imagens/atendimento.jpg" alt="Atendimento no Salão da Leila" />
+      <div class="texto">
+        <h3><i class="fa-solid fa-heart"></i> Um espaço pra você</h3>
+        <p>
+          Um lugar pensado para você relaxar enquanto cuidamos do seu cabelo,
+          das suas unhas e da sua autoestima.
+        </p>
+        <ul>
+          <li>
+            <i class="fa-solid fa-location-dot"></i>
+            <span>R. Eugênio Pessine, 73 - Jardim Itaipu<br />Marília / SP</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-phone"></i>
+            <span>(14) 3451-4098</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-clock"></i>
+            <span>Segunda a sábado, das 9h às 19h</span>
+          </li>
+        </ul>
+        <a href="login.html" class="botao">
+          <i class="fa-solid fa-calendar-check"></i> Quero agendar
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="redes">
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+    Salão da Leila &copy; 2026 - Sistema de Agendamento
+  </footer>
+
+  <script src="js/menu.js"></script>
+  <script src="js/dados.js"></script>
+  <script src="js/utils.js"></script>
+  <script>
+    // Monta os cartões de serviço na página inicial
+    const grade = document.getElementById("gradeServicos");
+
+    SERVICOS.forEach(function (servico) {
+      const cartao = document.createElement("div");
+      cartao.className = "cartao-servico";
+      cartao.innerHTML =
+        '<div class="icone"><i class="fa-solid ' + servico.icone + '"></i></div>' +
+        "<h4>" + servico.nome + "</h4>" +
+        '<div class="duracao">' + servico.duracao + " minutos</div>" +
+        '<div class="preco">' + formatarPreco(servico.preco) + "</div>";
+      grade.appendChild(cartao);
+    });
+  </script>
+
+</body>
+</html>

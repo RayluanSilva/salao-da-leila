@@ -1,0 +1,1176 @@
+/* ===== Cores e medidas do site ===== */
+
+:root {
+  --rosa: #b03a5b;
+  --rosa-escuro: #8e2e49;
+  --rosa-claro: #fce8ee;
+  --dourado: #c9a227;
+  --fundo: #fdf8f6;
+  --texto: #3a3238;
+  --cinza: #8c8288;
+  --borda: #ece3e6;
+  --sombra: 0 2px 12px rgba(90, 60, 70, 0.08);
+  --sombra-forte: 0 6px 22px rgba(90, 60, 70, 0.14);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Jost", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  background-color: var(--fundo);
+  color: var(--texto);
+  line-height: 1.65;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Barlow Condensed", Arial, sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.3px;
+}
+
+a {
+  color: var(--rosa);
+}
+
+img {
+  max-width: 100%;
+}
+
+/* ===== Cabeçalho ===== */
+
+header {
+  background-color: #fff;
+  border-bottom: 1px solid var(--borda);
+  padding: 12px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+}
+
+.logo img {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.logo-texto {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.logo-nome {
+  font-family: "Barlow Condensed", Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--rosa);
+}
+
+.logo-slogan {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: var(--cinza);
+}
+
+header nav {
+  display: flex;
+  gap: 4px;
+}
+
+header nav a {
+  color: var(--texto);
+  text-decoration: none;
+  font-size: 14px;
+  padding: 9px 15px;
+  border-radius: 22px;
+  white-space: nowrap;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+header nav a:hover {
+  background-color: var(--rosa-claro);
+  color: var(--rosa);
+}
+
+header nav a.ativo {
+  background-color: var(--rosa);
+  color: #fff;
+}
+
+header nav a i {
+  margin-right: 6px;
+  font-size: 13px;
+}
+
+.botao-menu {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--rosa);
+  font-size: 22px;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.botao-menu:hover {
+  background: var(--rosa-claro);
+}
+
+/* ===== Conteúdo ===== */
+
+main {
+  max-width: 960px;
+  margin: 35px auto;
+  padding: 0 20px;
+}
+
+h2 {
+  font-size: 34px;
+  margin-bottom: 6px;
+}
+
+h3 {
+  font-size: 23px;
+  margin: 28px 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+h3 i {
+  color: var(--rosa);
+  font-size: 16px;
+}
+
+.subtitulo {
+  color: var(--cinza);
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+
+/* ===== Banner da página inicial ===== */
+
+.banner {
+  position: relative;
+  min-height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 70px 20px;
+  background-image: linear-gradient(rgba(52, 26, 35, 0.72), rgba(52, 26, 35, 0.6)),
+    url("../imagens/salao.jpg");
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+
+.banner-conteudo {
+  max-width: 600px;
+}
+
+.banner .etiqueta {
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.banner h2 {
+  color: #fff;
+  font-size: 56px;
+  margin-bottom: 16px;
+}
+
+.banner p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  opacity: 0.94;
+}
+
+.banner .botao {
+  font-size: 16px;
+  padding: 15px 34px;
+}
+
+/* ===== Seções da home ===== */
+
+.secao {
+  max-width: 960px;
+  margin: 70px auto;
+  padding: 0 20px;
+}
+
+.secao-titulo {
+  text-align: center;
+  margin-bottom: 38px;
+}
+
+.secao-titulo h2 {
+  font-size: 39px;
+}
+
+.secao-titulo p {
+  color: var(--cinza);
+}
+
+.separador {
+  width: 60px;
+  height: 3px;
+  background: var(--dourado);
+  border-radius: 2px;
+  margin: 14px auto 0;
+}
+
+/* ===== Cartões de serviço (home) ===== */
+
+.grade-servicos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+  gap: 18px;
+}
+
+.cartao-servico {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  padding: 26px 20px;
+  text-align: center;
+  box-shadow: var(--sombra);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cartao-servico:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--sombra-forte);
+}
+
+.cartao-servico .icone {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: var(--rosa-claro);
+  color: var(--rosa);
+  font-size: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cartao-servico h4 {
+  font-size: 21px;
+  margin-bottom: 6px;
+}
+
+.cartao-servico .duracao {
+  color: var(--cinza);
+  font-size: 13px;
+}
+
+.cartao-servico .preco {
+  color: var(--rosa);
+  font-size: 21px;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+/* ===== Bloco de informações (home) ===== */
+
+.bloco-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--sombra);
+}
+
+.bloco-info img {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.bloco-info .texto {
+  padding: 36px;
+}
+
+.bloco-info ul {
+  list-style: none;
+  margin: 18px 0;
+}
+
+.bloco-info li {
+  padding: 11px 0;
+  border-bottom: 1px solid var(--borda);
+  font-size: 15px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.bloco-info li:last-child {
+  border-bottom: none;
+}
+
+.bloco-info li i {
+  color: var(--rosa);
+  width: 18px;
+  text-align: center;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+/* ===== Formulários ===== */
+
+.campo {
+  margin-bottom: 16px;
+}
+
+.campo label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.campo input,
+.campo select {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid var(--borda);
+  border-radius: 9px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #fff;
+  color: var(--texto);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campo input:focus,
+.campo select:focus {
+  outline: none;
+  border-color: var(--rosa);
+  box-shadow: 0 0 0 3px var(--rosa-claro);
+}
+
+/* ===== Botões ===== */
+
+button,
+.botao {
+  background-color: var(--rosa);
+  color: #fff;
+  border: none;
+  padding: 11px 22px;
+  border-radius: 24px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+}
+
+button:hover,
+.botao:hover {
+  background-color: var(--rosa-escuro);
+  box-shadow: 0 4px 12px rgba(176, 58, 91, 0.25);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button.secundario {
+  background: #fff;
+  color: var(--rosa);
+  border: 1px solid var(--rosa);
+}
+
+button.secundario:hover {
+  background: var(--rosa-claro);
+  box-shadow: none;
+}
+
+button.cancelar {
+  background-color: #fff;
+  color: #b3403a;
+  border: 1px solid #edc9c7;
+}
+
+button.cancelar:hover {
+  background-color: #fbeceb;
+  box-shadow: none;
+}
+
+button:disabled {
+  background-color: #ddd;
+  color: #999;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ===== Serviços com checkbox (tela de agendar) ===== */
+
+.lista-servicos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.servico-item {
+  border: 2px solid var(--borda);
+  border-radius: 12px;
+  padding: 15px;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.servico-item:hover {
+  border-color: #e2b9c7;
+}
+
+.servico-item.marcado {
+  border-color: var(--rosa);
+  background: var(--rosa-claro);
+}
+
+.servico-item label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  gap: 10px;
+}
+
+.servico-item .nome-servico {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.servico-item .nome-servico i {
+  color: var(--rosa);
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.servico-item input[type="checkbox"] {
+  accent-color: var(--rosa);
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.servico-item .preco-servico {
+  white-space: nowrap;
+  color: var(--rosa);
+  font-weight: 600;
+}
+
+.servico-item .detalhe {
+  font-size: 12px;
+  color: var(--cinza);
+  margin-top: 7px;
+  padding-left: 27px;
+}
+
+/* ===== Resumo do agendamento ===== */
+
+.resumo {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-left: 4px solid var(--rosa);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 22px 0;
+  box-shadow: var(--sombra);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.resumo .valor {
+  font-family: "Barlow Condensed", Arial, sans-serif;
+  font-size: 31px;
+  color: var(--rosa);
+  font-weight: 600;
+}
+
+.resumo .tempo {
+  color: var(--cinza);
+  font-size: 14px;
+}
+
+/* ===== Cartões de agendamento ===== */
+
+.agendamento {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-left: 4px solid var(--rosa);
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 16px;
+  box-shadow: var(--sombra);
+}
+
+.agendamento-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.agendamento-data {
+  font-family: "Barlow Condensed", Arial, sans-serif;
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.agendamento-hora {
+  color: var(--cinza);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 2px;
+}
+
+.agendamento-hora i {
+  color: var(--rosa);
+  font-size: 12px;
+}
+
+.agendamento table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.agendamento table td {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--borda);
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.agendamento table tr:last-child td {
+  border-bottom: none;
+}
+
+.agendamento table td:last-child {
+  text-align: right;
+}
+
+.agendamento table select {
+  padding: 6px 9px;
+  border: 1px solid var(--borda);
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 13px;
+  background: #fff;
+  color: var(--texto);
+  max-width: 100%;
+}
+
+.nome-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.nome-item i {
+  color: var(--rosa);
+  font-size: 13px;
+  width: 15px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.total {
+  font-weight: 600;
+  text-align: right;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 2px solid var(--borda);
+  font-size: 16px;
+}
+
+.total span {
+  color: var(--rosa);
+  font-size: 18px;
+}
+
+.acoes {
+  margin-top: 16px;
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.form-alterar {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--borda);
+}
+
+/* ===== Etiquetas de status ===== */
+
+.status {
+  padding: 5px 13px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.status-pendente {
+  background: #fff4e0;
+  color: #9a6a10;
+}
+
+.status-confirmado {
+  background: #e3f0fb;
+  color: #1f6091;
+}
+
+.status-concluido {
+  background: #e4f4e8;
+  color: #1f6b38;
+}
+
+.status-cancelado {
+  background: #fbe9e8;
+  color: #9c3330;
+}
+
+/* ===== Avisos e mensagens ===== */
+
+.aviso {
+  background: #fff8e6;
+  border: 1px solid #f3e0b3;
+  border-left: 4px solid var(--dourado);
+  padding: 14px 17px;
+  border-radius: 9px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+}
+
+.aviso i {
+  color: var(--dourado);
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.erro {
+  color: #b3403a;
+  font-size: 13px;
+  margin-top: 8px;
+  min-height: 18px;
+}
+
+.vazio {
+  text-align: center;
+  color: var(--cinza);
+  padding: 55px 25px;
+  background: #fff;
+  border: 1px dashed var(--borda);
+  border-radius: 14px;
+}
+
+.vazio i {
+  font-size: 40px;
+  color: #ddd0d5;
+  display: block;
+  margin-bottom: 18px;
+}
+
+.telefone-aviso {
+  font-size: 13px;
+  color: var(--cinza);
+  background: #f7f2f4;
+  padding: 9px 15px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.telefone-aviso i {
+  color: var(--rosa);
+}
+
+/* ===== Filtros ===== */
+
+.filtros {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+  align-items: flex-end;
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: var(--sombra);
+}
+
+.filtros .campo {
+  margin-bottom: 0;
+  flex: 1;
+  min-width: 145px;
+}
+
+.contador {
+  color: var(--cinza);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+/* ===== Painel de desempenho ===== */
+
+.cartoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  gap: 16px;
+  margin-bottom: 35px;
+}
+
+.cartao {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  padding: 24px 18px;
+  text-align: center;
+  box-shadow: var(--sombra);
+}
+
+.cartao .icone {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: var(--rosa-claro);
+  color: var(--rosa);
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cartao .numero {
+  font-family: "Barlow Condensed", Arial, sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--rosa);
+  line-height: 1.2;
+}
+
+.cartao .rotulo {
+  font-size: 13px;
+  color: var(--cinza);
+  margin-top: 3px;
+}
+
+/* ===== Tabela comum ===== */
+
+.tabela-caixa {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--sombra);
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela th {
+  background: var(--rosa-claro);
+  color: var(--rosa);
+  text-align: left;
+  padding: 14px 18px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tabela td {
+  padding: 14px 18px;
+  border-top: 1px solid var(--borda);
+  font-size: 14px;
+}
+
+/* ===== Login ===== */
+
+.caixa-login {
+  max-width: 430px;
+  margin: 45px auto;
+  background: #fff;
+  padding: 34px;
+  border-radius: 16px;
+  border: 1px solid var(--borda);
+  box-shadow: var(--sombra-forte);
+}
+
+.caixa-login .logo-login {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.caixa-login .logo-login img {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+}
+
+.caixa-login h2 {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 4px;
+}
+
+.caixa-login .subtitulo {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 26px;
+}
+
+.abas {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 22px;
+  background: #f6f0f2;
+  padding: 5px;
+  border-radius: 24px;
+}
+
+.abas button {
+  background: none;
+  color: var(--cinza);
+  border-radius: 20px;
+  flex: 1;
+  padding: 10px 6px;
+  font-size: 13.5px;
+  box-shadow: none;
+}
+
+.abas button:hover {
+  background: none;
+  color: var(--rosa);
+  box-shadow: none;
+}
+
+.abas button.ativa {
+  background: var(--rosa);
+  color: #fff;
+}
+
+.abas button.ativa:hover {
+  background: var(--rosa);
+  color: #fff;
+}
+
+.caixa-login button[type="submit"] {
+  width: 100%;
+  padding: 13px;
+  font-size: 15px;
+}
+
+.escondido {
+  display: none !important;
+}
+
+/* ===== Rodapé ===== */
+
+footer {
+  text-align: center;
+  padding: 32px 20px;
+  color: var(--cinza);
+  font-size: 13px;
+  background: #fff;
+  border-top: 1px solid var(--borda);
+  margin-top: 70px;
+}
+
+footer .redes {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+footer .redes a {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--rosa-claro);
+  color: var(--rosa);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+footer .redes a:hover {
+  background: var(--rosa);
+  color: #fff;
+}
+
+/* =========================================================
+   TABLET (até 900px)
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .banner h2 {
+    font-size: 38px;
+  }
+
+  .bloco-info {
+    grid-template-columns: 1fr;
+  }
+
+  .bloco-info img {
+    min-height: 230px;
+  }
+}
+
+/* =========================================================
+   CELULAR (até 760px) - o menu vira hambúrguer
+   ========================================================= */
+
+@media (max-width: 760px) {
+  header {
+    flex-wrap: wrap;
+    padding: 12px 18px;
+  }
+
+  .botao-menu {
+    display: block;
+  }
+
+  header nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--borda);
+  }
+
+  header nav.aberto {
+    display: flex;
+  }
+
+  header nav a {
+    padding: 12px 14px;
+    border-radius: 10px;
+  }
+
+  main {
+    margin: 25px auto;
+  }
+
+  .secao {
+    margin: 45px auto;
+  }
+
+  .banner {
+    min-height: 400px;
+    padding: 55px 20px;
+  }
+
+  .banner h2 {
+    font-size: 37px;
+  }
+
+  .banner p {
+    font-size: 16px;
+  }
+
+  .secao-titulo h2 {
+    font-size: 31px;
+  }
+
+  h2 {
+    font-size: 29px;
+  }
+
+  .bloco-info .texto {
+    padding: 28px 24px;
+  }
+
+  .cartoes {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .cartao {
+    padding: 18px 12px;
+  }
+
+  .cartao .numero {
+    font-size: 22px;
+  }
+
+  .caixa-login {
+    padding: 26px 22px;
+    margin: 30px auto;
+  }
+
+  .agendamento {
+    padding: 18px;
+  }
+
+  .agendamento-topo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+  }
+
+  .agendamento table,
+  .agendamento table tbody,
+  .agendamento table tr,
+  .agendamento table td {
+    display: block;
+    width: 100%;
+  }
+
+  .agendamento table tr {
+    padding: 11px 0;
+    border-bottom: 1px solid var(--borda);
+  }
+
+  .agendamento table tr:last-child {
+    border-bottom: none;
+  }
+
+  .agendamento table td {
+    padding: 3px 0;
+    border-bottom: none;
+  }
+
+  .agendamento table td:last-child {
+    text-align: left;
+    margin-top: 5px;
+  }
+
+  .agendamento table select {
+    width: 100%;
+  }
+
+  .acoes button,
+  .acoes .botao {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .filtros {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .filtros .campo {
+    min-width: 100%;
+  }
+
+  .filtros button {
+    width: 100%;
+  }
+
+  .resumo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .tabela th,
+  .tabela td {
+    padding: 11px 12px;
+    font-size: 13px;
+  }
+}
+
+/* =========================================================
+   CELULAR PEQUENO (até 400px)
+   ========================================================= */
+
+@media (max-width: 400px) {
+  .logo-nome {
+    font-size: 20px;
+  }
+
+  .logo-slogan {
+    font-size: 9px;
+  }
+
+  .logo img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .banner h2 {
+    font-size: 32px;
+  }
+
+  .lista-servicos {
+    grid-template-columns: 1fr;
+  }
+
+  .cartoes {
+    grid-template-columns: 1fr;
+  }
+}

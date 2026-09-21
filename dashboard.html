@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desempenho - Salão da Leila</title>
+  <link rel="icon" type="image/svg+xml" href="imagens/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/estilo.css" />
+</head>
+<body>
+
+  <header>
+    <a href="painel.html" class="logo">
+      <img src="imagens/logo.svg" alt="Logo do Salão da Leila" />
+      <span class="logo-texto">
+        <span class="logo-nome">Salão da Leila</span>
+        <span class="logo-slogan">Área da administradora</span>
+      </span>
+    </a>
+
+    <button class="botao-menu" id="botaoMenu" onclick="alternarMenu()" aria-label="Abrir menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <nav id="menuPrincipal">
+      <a href="painel.html"><i class="fa-solid fa-clipboard-list"></i>Agendamentos</a>
+      <a href="dashboard.html" class="ativo"><i class="fa-solid fa-chart-simple"></i>Desempenho</a>
+      <a href="#" onclick="sair()"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Desempenho da semana</h2>
+    <p class="subtitulo" id="periodoSemana"></p>
+
+    <div class="cartoes">
+      <div class="cartao">
+        <div class="icone"><i class="fa-solid fa-calendar-check"></i></div>
+        <div class="numero" id="numeroAtendimentos">0</div>
+        <div class="rotulo">Atendimentos</div>
+      </div>
+      <div class="cartao">
+        <div class="icone"><i class="fa-solid fa-money-bill-wave"></i></div>
+        <div class="numero" id="numeroFaturamento">R$ 0,00</div>
+        <div class="rotulo">Faturamento</div>
+      </div>
+      <div class="cartao">
+        <div class="icone"><i class="fa-solid fa-chart-simple"></i></div>
+        <div class="numero" id="numeroTicket">R$ 0,00</div>
+        <div class="rotulo">Ticket médio</div>
+      </div>
+      <div class="cartao">
+        <div class="icone"><i class="fa-solid fa-ban"></i></div>
+        <div class="numero" id="numeroCancelados">0</div>
+        <div class="rotulo">Cancelamentos</div>
+      </div>
+    </div>
+
+    <h3><i class="fa-solid fa-ranking-star"></i> Serviços mais pedidos na semana</h3>
+    <div class="tabela-caixa">
+      <table class="tabela">
+        <tr>
+          <th>Serviço</th>
+          <th>Quantidade</th>
+          <th>Total</th>
+        </tr>
+        <tbody id="tabelaServicos"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    Salão da Leila © 2026 - Sistema de Agendamento
+  </footer>
+
+  <script src="js/menu.js"></script>
+  <script src="js/dados.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

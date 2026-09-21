@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entrar - Salão da Leila</title>
+    <link rel="icon" type="image/svg+xml" href="imagens/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/estilo.css" />
+  </head>
+  <body>
+    <header>
+      <a href="index.html" class="logo">
+        <img src="imagens/logo.svg" alt="Logo do Salão da Leila" />
+        <span class="logo-texto">
+          <span class="logo-nome">Salão da Leila</span>
+          <span class="logo-slogan">Seu momento mulher</span>
+        </span>
+      </a>
+
+      <button
+        class="botao-menu"
+        id="botaoMenu"
+        onclick="alternarMenu()"
+        aria-label="Abrir menu"
+      >
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <nav id="menuPrincipal">
+        <a href="index.html"><i class="fa-solid fa-house"></i>Início</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="caixa-login">
+        <div class="logo-login">
+          <img src="imagens/logo.svg" alt="Logo do Salão da Leila" />
+        </div>
+
+        <h2>Acesse sua conta</h2>
+        <p class="subtitulo">Para agendar e acompanhar seus horários</p>
+
+        <div class="abas">
+          <button
+            id="botaoAbaCliente"
+            class="ativa"
+            onclick="mostrarTipo('cliente')"
+          >
+            <i class="fa-solid fa-user"></i> Sou cliente
+          </button>
+          <button id="botaoAbaAdmin" onclick="mostrarTipo('admin')">
+            <i class="fa-solid fa-key"></i> Sou Funcionario
+          </button>
+        </div>
+
+        <div id="areaCliente">
+          <div class="abas">
+            <button
+              id="botaoEntrar"
+              class="ativa"
+              onclick="mostrarFormulario('entrar')"
+            >
+              Entrar
+            </button>
+            <button
+              id="botaoCadastrar"
+              onclick="mostrarFormulario('cadastrar')"
+            >
+              Criar conta
+            </button>
+          </div>
+
+          <form
+            id="formEntrarCliente"
+            onsubmit="return fazerLoginCliente(event);"
+          >
+            <div class="campo">
+              <label>E-mail</label>
+              <input
+                type="email"
+                id="loginEmail"
+                required
+                placeholder="seu@email.com"
+              />
+            </div>
+            <div class="campo">
+              <label>Senha</label>
+              <input
+                type="password"
+                id="loginSenha"
+                required
+                placeholder="Sua senha"
+              />
+            </div>
+            <p id="erroLoginCliente" class="erro"></p>
+            <button type="submit">
+              <i class="fa-solid fa-right-to-bracket"></i> Entrar
+            </button>
+          </form>
+
+          <form
+            id="formCadastro"
+            class="escondido"
+            onsubmit="return fazerCadastro(event);"
+          >
+            <div class="campo">
+              <label>Nome completo</label>
+              <input
+                type="text"
+                id="cadastroNome"
+                required
+                placeholder="Seu nome"
+              />
+            </div>
+            <div class="campo">
+              <label>Telefone</label>
+              <input
+                type="text"
+                id="cadastroTelefone"
+                required
+                placeholder="(14) 99999-9999"
+              />
+            </div>
+            <div class="campo">
+              <label>E-mail</label>
+              <input
+                type="email"
+                id="cadastroEmail"
+                required
+                placeholder="seu@email.com"
+              />
+            </div>
+            <div class="campo">
+              <label>Senha</label>
+              <input
+                type="password"
+                id="cadastroSenha"
+                required
+                minlength="4"
+                placeholder="Mínimo de 4 caracteres"
+              />
+            </div>
+            <p id="erroCadastro" class="erro"></p>
+            <button type="submit">
+              <i class="fa-solid fa-user-plus"></i> Criar minha conta
+            </button>
+          </form>
+        </div>
+
+        <div id="areaAdmin" class="escondido">
+          <form onsubmit="return fazerLoginAdmin(event);">
+            <div class="campo">
+              <label>E-mail</label>
+              <input
+                type="email"
+                id="adminEmail"
+                required
+                placeholder="Seu email"
+              />
+            </div>
+            <div class="campo">
+              <label>Senha</label>
+              <input
+                type="password"
+                id="adminSenha"
+                required
+                placeholder="Sua senha"
+              />
+            </div>
+            <p id="erroLoginAdmin" class="erro"></p>
+            <button type="submit">
+              <i class="fa-solid fa-right-to-bracket"></i> Entrar
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer>Salão da Leila &copy; 2026 - Sistema de Agendamento</footer>
+
+    <script src="js/menu.js"></script>
+    <script src="js/dados.js"></script>
+    <script src="js/login.js"></script>
+  </body>
+</html>
